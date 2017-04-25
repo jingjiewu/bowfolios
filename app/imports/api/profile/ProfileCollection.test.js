@@ -58,6 +58,23 @@ if (Meteor.isServer) {
       expect(Profiles.isDefined(docID)).to.be.true;
       Profiles.removeIt(docID);
     });
+    it('#define (illegal interest)', function test() {
+      const illegalInterests = ['foo'];
+      const username2 = 'philipmjohnson';
+      const defineObject2 = { firstName, lastName, username2, bio, illegalInterests, picture, title,
+        github, facebook, instagram };
+      expect(function foo() { Profiles.define(defineObject2); }).to.throw(Error);
+    });
+
+    it('#define (duplicate interest)', function test() {
+            const testing1 = 'Software Engineering';
+            const testing2 = 'Software Engineering';
+            const interests = [testing1, testing2];
+            const username1 = 'philipmjohnson';
+            const defineObject1 = { firstName, lastName, username1, bio, interests, picture, title, github, facebook, instagram };
+            expect (function foo() {Profiles.define(defineObject1); }).to.throw(Error);
+          });
   });
+
 }
 
